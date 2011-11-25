@@ -24,4 +24,17 @@ public class Book implements IArticle{
 		this.year = year;
 		this.price = price;
 	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public int getPrice() {
+		return price;
+	}
+	
+	public String getDescription() {
+		String output = id + " (Book) " + title + ", by " + author + ", " + year + ", " + price + " CHF";
+		return output;
+	}
 }

@@ -71,24 +71,209 @@ public class VierGewinnt {
 	/** Inserts the token at the specified column (if possible)
 	    and returns the row where the token landed */
 	private int insertToken(int column, Token tok){
-		// TODO
+		int rowToWrite;
+		if (!board[column][ROWS - 1].equals(Token.empty)) {
+			System.out.println("Column is full");
+			rowToWrite = -1;
+			System.exit(1);
+		} else {
+			rowToWrite = biggestEmptyRow(column);
+			//System.out.println(rowToWrite);
+			putTokenIn(column, rowToWrite, tok);
+		}
+		return rowToWrite;
 	}
 	
 	
 	/** Checks if every position is occupied */
 	private boolean isBoardFull() {
-		// TODO
+		boolean foundEmptyPlace = false;
+		for (int i = 0; i < COLS; i++) {
+			for (int j = 0; j < ROWS; j++) {
+				if (board[i][j].equals(Token.empty)) {
+					foundEmptyPlace = true;
+				}
+			}
+		}
+		return !foundEmptyPlace;
 	}
 	
 	
 	/** Checks for at least four equal tokens in a row in either direction,
 	    starting from the given position. */
 	private boolean checkVierGewinnt(int col, int row){
-		// TODO
+		boolean finished = false;
+		boolean a = checkA(col, row);	//Wagerecht
+		boolean b = checkB(col, row);	//Senkrecht
+		boolean c = checkC(col, row);	//links unten nach rechts oben
+		boolean d = checkD(col, row);	//links oben nach rechts unten
+		if (a || b || c || d) {
+			finished = true;
+		}
+		return finished;
 	}
 
 
+	//My Helper Methods
+	private boolean checkA(int colToCheck, int rowToCheck) {
+		boolean status = false;
+		int size = 1;
+		Token actualPlayersToken;
+		actualPlayersToken = board[colToCheck][rowToCheck];
+		
+		int position = colToCheck + 1;
+		while (position < COLS) {
+			if (board[position][rowToCheck].equals(actualPlayersToken)) {
+				size++;
+			} else {
+				position = COLS;
+			}
+			position++;
+		}
+		
+		position = colToCheck - 1;
+		while (position >= 0) {
+			if (board[position][rowToCheck].equals(actualPlayersToken)) {
+				size++;
+			} else {
+				position = -1;
+			}
+			position--;
+		}
+		
+		if (size >= 4) {
+			status = true;
+		}
+		return status;
+	}
+
+	private boolean checkB(int colToCheck, int rowToCheck) {
+		boolean status = false;
+		int size = 1;
+		Token actualPlayersToken;
+		actualPlayersToken = board[colToCheck][rowToCheck];
+		
+		int position = rowToCheck + 1;
+		while (position < ROWS) {
+			if (board[colToCheck][position].equals(actualPlayersToken)) {
+				size++;
+			} else {
+				position = ROWS;
+			}
+			position++;
+		}
+		
+		position = rowToCheck - 1;
+		while (position >= 0) {
+			if (board[colToCheck][position].equals(actualPlayersToken)) {
+				size++;
+			} else {
+				position = -1;
+			}
+			position--;
+		}
+		
+		if (size >= 4) {
+			status = true;
+		}
+		return status;
+	}
+
+	private boolean checkC(int colToCheck, int rowToCheck) {
+		boolean status = false;
+		int size = 1;
+		Token actualPlayersToken;
+		actualPlayersToken = board[colToCheck][rowToCheck];
+
+		int positionCol = colToCheck + 1;
+		int positionRow = rowToCheck + 1;
+		while (positionCol < COLS && positionRow < ROWS) {
+			if (board[positionCol][positionRow].equals(actualPlayersToken)) {
+				size++;
+			} else {
+				positionCol = COLS;
+				positionRow = ROWS;
+			}
+			positionCol++;
+			positionRow++;
+		}
+		
+		positionCol = colToCheck - 1;
+		positionRow = rowToCheck - 1;
+		while (positionCol >= 0 && positionRow >= 0) {
+			if (board[positionCol][positionRow].equals(actualPlayersToken)) {
+				size++;
+			} else {
+				positionCol = -1;
+				positionRow = -1;
+			}
+			positionCol--;
+			positionRow--;
+		}
+		
+		if (size >= 4) {
+			status = true;
+		}
+		return status;
+	}
 	
+	private boolean checkD(int colToCheck, int rowToCheck) {
+		boolean status = false;
+		int size = 1;
+		Token actualPlayersToken;
+		actualPlayersToken = board[colToCheck][rowToCheck];
+
+		int positionCol = colToCheck + 1;
+		int positionRow = rowToCheck - 1;
+		while (positionCol < COLS && positionRow >= 0) {
+			if (board[positionCol][positionRow].equals(actualPlayersToken)) {
+				size++;
+			} else {
+				positionCol = COLS;
+				positionRow = -1;
+			}
+			positionCol++;
+			positionRow--;
+		}
+		
+		positionCol = colToCheck - 1;
+		positionRow = rowToCheck + 1;
+		while (positionCol >= 0 && positionRow < ROWS) {
+			if (board[positionCol][positionRow].equals(actualPlayersToken)) {
+				size++;
+			} else {
+				positionCol = -1;
+				positionRow = ROWS;
+			}
+			positionCol--;
+			positionRow++;
+		}
+		
+		if (size >= 4) {
+			status = true;
+		}
+		return status;
+	}
+	
+	private int biggestEmptyRow(int colToFind) {
+		int rowOut = 0;
+		
+		int counter = 0;
+		boolean foundBiggest = false;
+		while (counter < ROWS && !foundBiggest) {
+			if (board[colToFind][counter].equals(Token.empty)) {
+				rowOut = counter;
+				foundBiggest = true;
+			}
+			counter++;
+		}
+		
+		return rowOut;
+	}
+	
+	private void putTokenIn(int columnToSetToken, int rowToSetToken, Token playersToken) {
+		board[columnToSetToken][rowToSetToken] = playersToken;
+	}
 	
 	
 	/** returns a graphical representation of the board */
