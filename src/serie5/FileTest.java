@@ -1,6 +1,13 @@
 package serie5;
 
-/* Programmierung 1 HS 2011 Aufgabe 5-1 */
+/******************************************************************************
+ * Programmierung 1 (HS 11)
+ * Serie 5 
+ *  
+ * Salim Hermidas 
+ * 11-125-382
+ *
+ */ 
 
 import java.util.*;
 
