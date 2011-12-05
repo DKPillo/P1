@@ -24,7 +24,7 @@ public class HumanPlayer implements IPlayer{
 				+" choose a column between 1 and "+board.length+": ");
 			column = Integer.parseInt(scan.nextLine()) - 1;
 			if(column >= 0 && column < board.length){
-				int topRow = board[0].length-1;
+				//int topRow = board[0].length-1;
 				if(isColFull(column, board)){
 					System.out.println("This column is full!");
 					column = -1;
