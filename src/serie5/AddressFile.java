@@ -1,22 +1,36 @@
 package serie5;
 
+/******************************************************************************
+ * Programmierung 1 (HS 11)
+ * Serie 5 
+ *  
+ * Salim Hermidas 
+ * 11-125-382
+ *
+ */ 
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressFile {
 	private String filename;
-	private ArrayList<Address> inAdds;
 
 	public AddressFile(String fileToOpen) {
 		filename = fileToOpen;
 	}
 	
-	private String toLine(Address addr) {
+	protected String toLine(Address addr) {
 		String output = addr.toString();
 		return output;
 	}
 	
-	private Address parseLine(String line) {
+	protected Address parseLine(String line) throws AddressFileException {
 		int newId, newZipCode;
 		String newName, newStreet, newCity;
 		
@@ -30,18 +44,35 @@ public class AddressFile {
 			newZipCode = Integer.parseInt(lineReader.next().trim());
 			newCity = lineReader.next().trim();
 		} catch (Exception exception) {
-			System.out.println(exception.getMessage());
+			throw problem;
 		}
 		
 		Address outAddress = new Address(newId, newName, newStreet, newZipCode, newCity);
 		return outAddress;
 	}
 	
-	private void save(ArrayList<Address> addresses) {
+	public void save(ArrayList<Address> addresses) throws IOException {
+		FileWriter fw = new FileWriter (filename);
+	    BufferedWriter bw = new BufferedWriter (fw);
+	    PrintWriter outFile = new PrintWriter (bw);
+	    
+		for(Address a : addresses){
+			outFile.print(toLine(a));
+			outFile.println();
+		}
 		
+		outFile.close();
 	}
 	
-	private ArrayList<Address> load() {
+	public ArrayList<Address> load() throws AddressFileException, FileNotFoundException {
+		ArrayList<Address> tmpAds = new ArrayList<Address>();
+
+		Scanner docReader = new Scanner(new File(filename));
 		
+		while (docReader.hasNextLine()) {
+			tmpAds.add(parseLine(docReader.nextLine()));
+		}
+		
+		return tmpAds;
 	}
 }

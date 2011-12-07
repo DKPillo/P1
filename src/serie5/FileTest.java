@@ -54,6 +54,6 @@ public class FileTest{
 			System.out.println("Loaded the following objects:");
 			for(Address adr : result)	System.out.println(adr);
 			System.out.println("");
-		}catch(AddressFileException e){  System.out.println("\nInvalid file.\n");  }
+		}catch(AddressFileException e){  System.out.println("\nInvalid file.\n");  } 
 	}
 }
