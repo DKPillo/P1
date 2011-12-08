@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressFile {
-	private String filename;
+	protected String filename;
 
 	public AddressFile(String fileToOpen) {
 		filename = fileToOpen;
