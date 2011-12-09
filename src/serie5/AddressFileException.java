@@ -9,6 +9,7 @@ package serie5;
  *
  */ 
 
+@SuppressWarnings("serial")
 public class AddressFileException extends Exception {
 
 	AddressFileException(String message) {
