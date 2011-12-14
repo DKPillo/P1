@@ -14,6 +14,7 @@ import java.math.BigInteger;
 public class FactBig {
 
 	public static void main(String[] args) {
+		//WORKS TO java FactBig 8964
 		BigInteger a;
 		BigInteger b = new BigInteger(String.valueOf(1));
 		try {
