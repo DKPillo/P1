@@ -17,7 +17,7 @@ public class MyProject {
             System.out.println("------------------------------------");
             System.out.println("------------------------------------");
             System.out.println("Hallo Welt");
-            System.out.println("Wählen Sie eine der folgenden Funktionen:");
+            System.out.println("Wï¿½hlen Sie eine der folgenden Funktionen:");
             System.out.println("h: Hallo Welt!");
             System.out.println("q: Quotient");
             System.out.println("o: Output testen");
@@ -29,26 +29,26 @@ public class MyProject {
             //BufferedReader input=new BufferedReader(new InputStreamReader(System.in));
             Scanner scan = new Scanner(System.in);
             
-            whatToDo = scan.nextLine();
+            whatToDo = scan.nextLine().substring(0, 1);
             
             System.out.println("");
             System.out.println("");
             
-            switch(whatToDo)
-            {
-                case "h":
+            switch(whatToDo.charAt(0))
+            { 
+                case 'h':
                     p1.halloWorld();
                     break;
-                case "q":
+                case 'q':
                     p1.adNumbers();
                     break;
-                case "o":
+                case 'o':
                     p1.testOut();
                     break;
-                case "f":
+                case 'f':
                     p1.fehler();
                     break;
-                case "e":
+                case 'e':
                     System.exit(0);
                     break;
                 default:
